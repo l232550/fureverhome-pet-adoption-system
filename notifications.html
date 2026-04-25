@@ -1,8 +1,13 @@
-<script> 
-    fetch("../api/check_auth.php") 
-        .then(res=>res.text()) 
-        .then(res=>{ if(res=="unauthorized")
-        { window.location = "login.html"; } });
+<script>
+    fetch("api/check_auth.php")
+        .then(res => res.text())
+        .then(res => {
+            if(res == "unauthorized"){
+                window.location = "login.html";
+            } else {
+                document.body.style.display = "block";
+            }
+        });
 </script>
 
 <!DOCTYPE html>
@@ -22,7 +27,7 @@
         <ul class="nav-links">
             <li><a href="user-dashboard.html">Dashboard</a></li>
             <li><a href="browse-pets.html">Browse Pets</a></li>
-            <li><a href="login.html" class="btn btn-secondary btn-small">Logout</a></li>
+            <li><a href="#" onclick="logout()" class="btn btn-secondary btn-small">Logout</a></li>
         </ul>
     </nav>
 
@@ -109,6 +114,14 @@
     <footer class="footer">
         <p>🐾 FurEver Home &copy; 2025 | Made with love for every furry soul 💕</p>
     </footer>
-
+<script>
+    function logout(){
+        fetch("api/logout.php")
+        .then(res => res.text())
+        .then(() => {
+            window.location = "login.html";
+        });
+    }
+</script>
 </body>
 </html>

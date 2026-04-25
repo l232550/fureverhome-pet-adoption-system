@@ -1,3 +1,6 @@
+body {
+     display: none; /* hide page until auth check passes */
+}
 
 .application-wrapper {
     max-width: 700px;
