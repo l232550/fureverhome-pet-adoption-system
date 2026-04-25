@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FurEver Home - Find Your Perfect Pet</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* ---- Hero Section ---- */
+        .hero {
+            background-color: var(--pink-light);
+            text-align: center;
+            padding: 70px 20px;
+            border-bottom: 2px solid var(--pink-main);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            color: var(--brown-dark);
+            margin-bottom: 14px;
+        }
+
+        .hero p {
+            font-size: 1.05rem;
+            max-width: 550px;
+            margin: 0 auto 28px auto;
+            color: var(--text-mid);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+        }
+
+        /* ---- About Strip ---- */
+        .about-strip {
+            background-color: var(--brown-light);
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .about-strip p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 0.95rem;
+            color: var(--text-mid);
+        }
+
+        /* ---- Featured Pets ---- */
+        .featured-section {
+            padding: 50px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* ---- Pet Card ---- */
+        .pet-card {
+            background-color: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 4px 14px var(--shadow);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .pet-card .pet-img {
+            width: 100%;
+            height: 180px;
+            background-color: var(--brown-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+        }
+
+        .pet-card .pet-info {
+            padding: 16px;
+        }
+
+        .pet-card h3 {
+            margin-bottom: 6px;
+            color: var(--brown-dark);
+        }
+
+        .pet-card p {
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+        }
+
+        /* ---- How It Works ---- */
+        .how-it-works {
+            background-color: var(--pink-light);
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 900px;
+            margin: 30px auto 0 auto;
+        }
+
+        .step-box {
+            background-color: var(--white);
+            border-radius: 14px;
+            padding: 24px;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .step-icon {
+            font-size: 2.4rem;
+            margin-bottom: 10px;
+        }
+
+        .step-box h3 {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">🐾 FurEver <span>Home</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="browse-pets.html">Browse Pets</a></li>
+            <li><a href="login.html" class="btn btn-secondary btn-small">Login</a></li>
+            <li><a href="register.html" class="btn btn-primary btn-small">Register</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>🐶 Find Your FurEver Friend 🐱</h1>
+        <p>Thousands of loving pets are waiting for a home. Browse our shelter listings and give a pet the life they deserve.</p>
+        <div class="hero-buttons">
+            <a href="browse-pets.html" class="btn btn-primary">Browse Pets</a>
+            <a href="register.html" class="btn btn-secondary">Get Started</a>
+        </div>
+    </section>
+
+    <!-- About strip -->
+    <div class="about-strip">
+        <p>
+            FurEver Home connects animal shelters with loving families. 
+            Our platform makes pet adoption simple, transparent, and joyful — 
+            because every animal deserves a safe and happy home. 🏡
+        </p>
+    </div>
+
+    <!-- Featured Pets -->
+    <section class="featured-section">
+        <div class="section-title">
+            <h2>✨ Featured Pets</h2>
+            <p>These adorable friends are looking for their forever families!</p>
+        </div>
+
+        <div class="grid-3">
+
+            <div class="pet-card">
+                <div class="pet-img">🐶</div>
+                <div class="pet-info">
+                    <h3>Buddy</h3>
+                    <p>Golden Retriever · 2 years · Male</p>
+                    <span class="badge badge-available">Available</span>
+                    <br><br>
+                    <a href="pet-details.html" class="btn btn-primary btn-small">View Details</a>
+                </div>
+            </div>
+
+            <div class="pet-card">
+                <div class="pet-img">🐱</div>
+                <div class="pet-info">
+                    <h3>Luna</h3>
+                    <p>Persian Cat · 1 year · Female</p>
+                    <span class="badge badge-available">Available</span>
+                    <br><br>
+                    <a href="pet-details.html" class="btn btn-primary btn-small">View Details</a>
+                </div>
+            </div>
+
+            <div class="pet-card">
+                <div class="pet-img">🐰</div>
+                <div class="pet-info">
+                    <h3>Coco</h3>
+                    <p>Holland Lop Rabbit · 6 months · Female</p>
+                    <span class="badge badge-available">Available</span>
+                    <br><br>
+                    <a href="pet-details.html" class="btn btn-primary btn-small">View Details</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="text-align:center; margin-top: 30px;">
+            <a href="browse-pets.html" class="btn btn-secondary">View All Pets →</a>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="section-title">
+            <h2>🌸 How It Works</h2>
+            <p>Adopting a pet has never been easier</p>
+        </div>
+
+        <div class="steps-grid">
+            <div class="step-box">
+                <div class="step-icon">🔍</div>
+                <h3>Browse Pets</h3>
+                <p>Search and filter available pets by type, breed, age, and more.</p>
+            </div>
+            <div class="step-box">
+                <div class="step-icon">📝</div>
+                <h3>Apply Online</h3>
+                <p>Fill out a simple adoption application form from the comfort of your home.</p>
+            </div>
+            <div class="step-box">
+                <div class="step-icon">🏠</div>
+                <h3>Bring Them Home</h3>
+                <p>Once approved, arrange a pickup and welcome your new family member!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>🐾 FurEver Home &copy; 2025 | Made with love for every furry soul 💕</p>
+        <p style="margin-top:6px;">
+            <a href="#">About Us</a> &nbsp;|&nbsp;
+            <a href="#">Contact</a> &nbsp;|&nbsp;
+            <a href="#">Privacy Policy</a>
+        </p>
+    </footer>
+
+</body>
+</html>

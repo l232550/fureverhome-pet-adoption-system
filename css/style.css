@@ -1,0 +1,348 @@
+/* ============================================
+   FurEver Home - Main Stylesheet
+   Color Palette defined at top using variables
+   ============================================ */
+
+:root {
+    --pink-light:    #fde8f0;
+    --pink-main:     #f4a7c3;
+    --pink-dark:     #d96b99;
+    --cream:         #fffaf5;
+    --brown-light:   #f5e6d3;
+    --brown-main:    #c8956c;
+    --brown-dark:    #7a4f3a;
+    --text-dark:     #3d2b1f;
+    --text-mid:      #7a5c4e;
+    --text-light:    #b89487;
+    --white:         #ffffff;
+    --success:       #7ec8a0;
+    --warning:       #f5c97a;
+    --danger:        #e8837a;
+    --shadow:        rgba(200, 149, 108, 0.2);
+}
+
+/* ============ RESET & BASE ============ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background-color: var(--cream);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* ============ TYPOGRAPHY ============ */
+
+h1, h2, h3, h4 {
+    font-family: Georgia, serif;
+    color: var(--brown-dark);
+}
+
+h1 { font-size: 2.4rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.3rem; }
+
+p {
+    color: var(--text-mid);
+    font-size: 0.95rem;
+}
+
+/* ============ NAVBAR ============ */
+
+.navbar {
+    background-color: var(--white);
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--pink-light);
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.navbar .logo {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: var(--pink-dark);
+    font-family: Georgia, serif;
+}
+
+.navbar .logo span {
+    color: var(--brown-main);
+}
+
+.nav-links {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.nav-links a {
+    color: var(--text-mid);
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover {
+    color: var(--pink-dark);
+}
+
+/* ============ BUTTONS ============ */
+
+.btn {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: Georgia, serif;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background-color: var(--pink-dark);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: var(--brown-dark);
+}
+
+.btn-secondary {
+    background-color: var(--white);
+    color: var(--pink-dark);
+    border: 2px solid var(--pink-dark);
+}
+
+.btn-secondary:hover {
+    background-color: var(--pink-light);
+}
+
+.btn-brown {
+    background-color: var(--brown-main);
+    color: var(--white);
+}
+
+.btn-brown:hover {
+    background-color: var(--brown-dark);
+}
+
+.btn-success {
+    background-color: var(--success);
+    color: var(--white);
+}
+
+.btn-danger {
+    background-color: var(--danger);
+    color: var(--white);
+}
+
+.btn-small {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+}
+
+/* ============ FOOTER ============ */
+
+.footer {
+    background-color: var(--brown-dark);
+    color: var(--white);
+    text-align: center;
+    padding: 20px 40px;
+    font-size: 0.85rem;
+    margin-top: 60px;
+}
+ 
+.footer p {
+    color: var(--white);
+}
+
+.footer a {
+    color: var(--pink-main);
+    text-decoration: underline;
+}
+
+/* ============ FORM STYLES ============ */
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    color: var(--text-mid);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--pink-main);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-family: Georgia, serif;
+    background-color: var(--white);
+    color: var(--text-dark);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--pink-dark);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+/* ============ PAGE WRAPPER ============ */
+
+.page-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* ============ PAGE HEADER BANNER ============ */
+
+.page-banner {
+    background-color: var(--pink-light);
+    text-align: center;
+    padding: 40px 20px;
+    border-bottom: 2px solid var(--pink-main);
+}
+
+.page-banner h1 {
+    font-size: 2rem;
+    color: var(--brown-dark);
+}
+
+.page-banner p {
+    margin-top: 6px;
+    color: var(--text-mid);
+}
+
+/* ============ CARD ============ */
+
+.card {
+    background-color: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 4px 14px var(--shadow);
+    overflow: hidden;
+}
+
+/* ============ STATUS BADGES ============ */
+
+.badge {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.badge-available  { background-color: var(--success);  color: var(--white); }
+.badge-pending    { background-color: var(--warning);  color: var(--text-dark); }
+.badge-adopted    { background-color: var(--pink-main); color: var(--white); }
+.badge-rejected   { background-color: var(--danger);   color: var(--white); }
+
+/* ============ TABLE ============ */
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.data-table th {
+    background-color: var(--pink-light);
+    color: var(--brown-dark);
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 2px solid var(--pink-main);
+}
+
+.data-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--brown-light);
+    color: var(--text-mid);
+}
+
+.data-table tr:hover {
+    background-color: var(--pink-light);
+}
+
+/* ============ SECTION TITLE ============ */
+
+.section-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.section-title h2 {
+    font-size: 1.7rem;
+    color: var(--brown-dark);
+}
+
+.section-title p {
+    margin-top: 6px;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* ============ GRID LAYOUTS ============ */
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+/* ============ ALERT / INFO BOX ============ */
+
+.alert {
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+}
+
+.alert-success { background-color: #d4edda; color: #2d6a4f; }
+.alert-warning { background-color: #fff3cd; color: #856404; }
+.alert-danger  { background-color: #f8d7da; color: #842029; }
+.alert-info    { background-color: var(--pink-light); color: var(--brown-dark); }

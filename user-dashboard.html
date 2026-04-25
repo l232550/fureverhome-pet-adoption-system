@@ -1,0 +1,276 @@
+<script> 
+    fetch("../api/check_auth.php") 
+        .then(res=>res.text()) 
+        .then(res=>{ if(res=="unauthorized")
+        { window.location = "login.html"; } });
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FurEver Home - My Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 28px;
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* ---- Sidebar ---- */
+        .sidebar {
+            background-color: var(--white);
+            border-radius: 16px;
+            padding: 24px 18px;
+            box-shadow: 0 4px 14px var(--shadow);
+            height: fit-content;
+        }
+
+        .profile-section {
+            text-align: center;
+            border-bottom: 1px solid var(--pink-light);
+            padding-bottom: 18px;
+            margin-bottom: 18px;
+        }
+
+        .avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: var(--pink-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 10px auto;
+            border: 3px solid var(--pink-main);
+        }
+
+        .profile-section h3 {
+            font-size: 1rem;
+            color: var(--brown-dark);
+        }
+
+        .profile-section p {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 10px 14px;
+            border-radius: 10px;
+            color: var(--text-mid);
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background-color: var(--pink-light);
+            color: var(--pink-dark);
+        }
+
+        /* ---- Main Content ---- */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Stats Row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .stat-card {
+            background-color: var(--white);
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 14px var(--shadow);
+        }
+
+        .stat-card .stat-icon { font-size: 2rem; }
+        .stat-card .stat-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--pink-dark);
+            margin: 6px 0;
+        }
+        .stat-card p { font-size: 0.82rem; }
+
+        /* Applications Table */
+        .section-box {
+            background-color: var(--white);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 14px var(--shadow);
+        }
+
+        .section-box-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .section-box-header h3 { color: var(--brown-dark); }
+
+        /* Notification items */
+        .notification-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--pink-light);
+        }
+
+        .notification-item:last-child { border-bottom: none; }
+
+        .notif-icon {
+            font-size: 1.4rem;
+            min-width: 32px;
+            text-align: center;
+        }
+
+        .notif-text p { font-size: 0.88rem; margin: 0; }
+        .notif-time { font-size: 0.75rem; color: var(--text-light); }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">🐾 FurEver <span>Home</span></a>
+        <ul class="nav-links">
+            <li><a href="browse-pets.html">Browse Pets</a></li>
+            <li><a href="notifications.html">🔔 Notifications</a></li>
+            <li><a href="login.html" class="btn btn-secondary btn-small">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Dashboard Layout -->
+    <div class="dashboard-layout">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="profile-section">
+                <div class="avatar">👤</div>
+                <h3>Tooba Nadeem</h3>
+                <p>tooba@example.com</p>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="user-dashboard.html" class="active">🏠 Dashboard</a>
+                <a href="browse-pets.html">🐾 Browse Pets</a>
+                <a href="adoption-application.html">📝 Apply for Adoption</a>
+                <a href="notifications.html">🔔 Notifications</a>
+                <a href="#">⚙️ My Profile</a>
+                <a href="login.html">🚪 Logout</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Stats -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-icon">📝</div>
+                    <div class="stat-number">3</div>
+                    <p>Applications Submitted</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-number">1</div>
+                    <p>Adoption Approved</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🔔</div>
+                    <div class="stat-number">2</div>
+                    <p>New Notifications</p>
+                </div>
+            </div>
+
+            <!-- Applications Table -->
+            <div class="section-box">
+                <div class="section-box-header">
+                    <h3>📋 My Adoption Applications</h3>
+                    <a href="adoption-application.html" class="btn btn-primary btn-small">+ New Application</a>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Pet Name</th>
+                            <th>Breed</th>
+                            <th>Applied On</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🐶 Buddy</td>
+                            <td>Golden Retriever</td>
+                            <td>10 Jan 2025</td>
+                            <td><span class="badge badge-available">Approved</span></td>
+                            <td><a href="pet-details.html" class="btn btn-secondary btn-small">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>🐱 Luna</td>
+                            <td>Persian Cat</td>
+                            <td>18 Jan 2025</td>
+                            <td><span class="badge badge-pending">Pending</span></td>
+                            <td><a href="pet-details.html" class="btn btn-secondary btn-small">View</a></td>
+                        </tr>
+                        <tr>
+                            <td>🐰 Coco</td>
+                            <td>Holland Lop</td>
+                            <td>22 Jan 2025</td>
+                            <td><span class="badge badge-rejected">Rejected</span></td>
+                            <td><a href="pet-details.html" class="btn btn-secondary btn-small">View</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Notifications preview -->
+            <div class="section-box">
+                <div class="section-box-header">
+                    <h3>🔔 Recent Notifications</h3>
+                    <a href="notifications.html" class="btn btn-secondary btn-small">View All</a>
+                </div>
+                <div class="notification-item">
+                    <div class="notif-icon">✅</div>
+                    <div class="notif-text">
+                        <p>Your adoption application for <strong>Buddy</strong> has been <strong>approved!</strong></p>
+                        <span class="notif-time">2 hours ago</span>
+                    </div>
+                </div>
+                <div class="notification-item">
+                    <div class="notif-icon">🐾</div>
+                    <div class="notif-text">
+                        <p>New pets matching your preference have been added to the shelter.</p>
+                        <span class="notif-time">Yesterday</span>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>🐾 FurEver Home &copy; 2025 | Made with love for every furry soul 💕</p>
+    </footer>
+
+</body>
+</html>

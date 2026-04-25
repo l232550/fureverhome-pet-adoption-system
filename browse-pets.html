@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FurEver Home - Browse Pets</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* ---- Search & Filter Bar ---- */
+        .filter-bar {
+            background-color: var(--white);
+            border-bottom: 2px solid var(--pink-light);
+            padding: 20px 40px;
+            display: flex;
+            gap: 14px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .filter-bar .form-group {
+            margin-bottom: 0;
+            flex: 1;
+            min-width: 160px;
+        }
+
+        .filter-bar label {
+            font-size: 0.82rem;
+        }
+
+        /* ---- Pets Grid ---- */
+        .pets-section {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .results-info {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .pets-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        /* ---- Pet Card ---- */
+        .pet-card {
+            background-color: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 4px 14px var(--shadow);
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .pet-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .pet-card .pet-img {
+            width: 100%;
+            height: 170px;
+            background-color: var(--brown-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .pet-card .pet-info {
+            padding: 16px;
+        }
+
+        .pet-card h3 {
+            margin-bottom: 4px;
+            font-size: 1.1rem;
+        }
+
+        .pet-card .pet-meta {
+            font-size: 0.82rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .pet-card .pet-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        /* ---- Pagination ---- */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 40px;
+        }
+
+        .page-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1.5px solid var(--pink-main);
+            background: var(--white);
+            cursor: pointer;
+            color: var(--text-mid);
+            font-size: 0.88rem;
+            font-family: Georgia, serif;
+            transition: all 0.2s;
+        }
+
+        .page-btn.active,
+        .page-btn:hover {
+            background-color: var(--pink-dark);
+            color: var(--white);
+            border-color: var(--pink-dark);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">🐾 FurEver <span>Home</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="user-dashboard.html">Dashboard</a></li>
+            <li><a href="login.html" class="btn btn-secondary btn-small">Login</a></li>
+            <li><a href="register.html" class="btn btn-primary btn-small">Register</a></li>
+        </ul>
+    </nav>
+
+    <!-- Page Banner -->
+    <div class="page-banner">
+        <h1>🐾 Browse Available Pets</h1>
+        <p>Find your perfect furry companion from our shelters</p>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+        <div class="form-group">
+            <label for="search">Search by Name</label>
+            <input type="text" id="search" placeholder="e.g. Buddy, Luna...">
+        </div>
+        <div class="form-group">
+            <label for="pet-type">Pet Type</label>
+            <select id="pet-type">
+                <option value="">All Types</option>
+                <option>Dog</option>
+                <option>Cat</option>
+                <option>Rabbit</option>
+                <option>Bird</option>
+                <option>Other</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="age-range">Age</label>
+            <select id="age-range">
+                <option value="">Any Age</option>
+                <option>Under 1 Year</option>
+                <option>1–3 Years</option>
+                <option>3–7 Years</option>
+                <option>7+ Years</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender">
+                <option value="">Any</option>
+                <option>Male</option>
+                <option>Female</option>
+            </select>
+        </div>
+        <button class="btn btn-primary">Search 🔍</button>
+    </div>
+
+    <!-- Pets Grid -->
+    <div class="pets-section">
+        <p class="results-info">Showing 6 pets available for adoption</p>
+
+        <div class="pets-grid">
+
+            <div class="pet-card">
+                <div class="pet-img">🐶</div>
+                <div class="pet-info">
+                    <h3>Buddy</h3>
+                    <p class="pet-meta">🐕 Golden Retriever &nbsp;|&nbsp; 2 yrs &nbsp;|&nbsp; Male</p>
+                    <p>A friendly and energetic dog who loves to play and cuddle.</p>
+                    <div class="pet-footer">
+                        <span class="badge badge-available">Available</span>
+                        <a href="pet-details.html" class="btn btn-primary btn-small">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pet-card">
+                <div class="pet-img">🐱</div>
+                <div class="pet-info">
+                    <h3>Luna</h3>
+                    <p class="pet-meta">🐈 Persian Cat &nbsp;|&nbsp; 1 yr &nbsp;|&nbsp; Female</p>
+                    <p>A calm and affectionate cat, perfect for cozy homes.</p>
+                    <div class="pet-footer">
+                        <span class="badge badge-available">Available</span>
+                        <a href="pet-details.html" class="btn btn-primary btn-small">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pet-card">
+                <div class="pet-img">🐰</div>
+                <div class="pet-info">
+                    <h3>Coco</h3>
+                    <p class="pet-meta">🐰 Holland Lop &nbsp;|&nbsp; 6 months &nbsp;|&nbsp; Female</p>
+                    <p>A tiny ball of fluff who loves treats and gentle pets!</p>
+                    <div class="pet-footer">
+                        <span class="badge badge-available">Available</span>
+                        <a href="pet-details.html" class="btn btn-primary btn-small">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pet-card">
+                <div class="pet-img">🐦</div>
+                <div class="pet-info">
+                    <h3>Kiwi</h3>
+                    <p class="pet-meta">🦜 Parakeet &nbsp;|&nbsp; 1 yr &nbsp;|&nbsp; Male</p>
+                    <p>A cheerful, talkative bird who brings life to any room.</p>
+                    <div class="pet-footer">
+                        <span class="badge badge-available">Available</span>
+                        <a href="pet-details.html" class="btn btn-primary btn-small">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pet-card">
+                <div class="pet-img">🐶</div>
+                <div class="pet-info">
+                    <h3>Max</h3>
+                    <p class="pet-meta">🐕 Labrador &nbsp;|&nbsp; 3 yrs &nbsp;|&nbsp; Male</p>
+                    <p>A loyal, well-trained dog great with kids and families.</p>
+                    <div class="pet-footer">
+                        <span class="badge badge-pending">Pending</span>
+                        <a href="pet-details.html" class="btn btn-secondary btn-small">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pet-card">
+                <div class="pet-img">🐱</div>
+                <div class="pet-info">
+                    <h3>Mochi</h3>
+                    <p class="pet-meta">🐈 Siamese &nbsp;|&nbsp; 2 yrs &nbsp;|&nbsp; Female</p>
+                    <p>Elegant, curious, and loves watching the world from windowsills.</p>
+                    <div class="pet-footer">
+                        <span class="badge badge-available">Available</span>
+                        <a href="pet-details.html" class="btn btn-primary btn-small">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">›</button>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>🐾 FurEver Home &copy; 2025 | Made with love for every furry soul 💕</p>
+    </footer>
+
+</body>
+</html>

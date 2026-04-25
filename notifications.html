@@ -1,0 +1,204 @@
+<script> 
+    fetch("../api/check_auth.php") 
+        .then(res=>res.text()) 
+        .then(res=>{ if(res=="unauthorized")
+        { window.location = "login.html"; } });
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FurEver Home - Notifications</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .notif-wrapper {
+            max-width: 720px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .notif-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .notif-header h2 { color: var(--brown-dark); }
+
+        /* ---- Notification Item ---- */
+        .notif-card {
+            background-color: var(--white);
+            border-radius: 14px;
+            padding: 18px 20px;
+            margin-bottom: 14px;
+            box-shadow: 0 2px 10px var(--shadow);
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            border-left: 4px solid var(--pink-main);
+            transition: transform 0.1s;
+        }
+
+        .notif-card:hover {
+            transform: translateX(3px);
+        }
+
+        .notif-card.unread {
+            background-color: var(--pink-light);
+            border-left-color: var(--pink-dark);
+        }
+
+        .notif-card.type-success { border-left-color: var(--success); }
+        .notif-card.type-warning { border-left-color: var(--warning); }
+        .notif-card.type-info    { border-left-color: var(--pink-main); }
+
+        .notif-emoji {
+            font-size: 1.8rem;
+            min-width: 36px;
+            text-align: center;
+        }
+
+        .notif-body h4 {
+            font-size: 0.95rem;
+            color: var(--brown-dark);
+            margin-bottom: 4px;
+        }
+
+        .notif-body p {
+            font-size: 0.87rem;
+            margin: 0;
+        }
+
+        .notif-time {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-top: 6px;
+        }
+
+        .unread-dot {
+            width: 9px;
+            height: 9px;
+            background-color: var(--pink-dark);
+            border-radius: 50%;
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+
+        .notif-section-label {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-light);
+            margin: 24px 0 10px 0;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-light);
+        }
+
+        .empty-state .empty-icon { font-size: 3rem; margin-bottom: 12px; }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">🐾 FurEver <span>Home</span></a>
+        <ul class="nav-links">
+            <li><a href="user-dashboard.html">Dashboard</a></li>
+            <li><a href="browse-pets.html">Browse Pets</a></li>
+            <li><a href="login.html" class="btn btn-secondary btn-small">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Page Banner -->
+    <div class="page-banner">
+        <h1>🔔 Notifications</h1>
+        <p>Stay updated on your adoption applications and new pet arrivals</p>
+    </div>
+
+    <div class="notif-wrapper">
+
+        <!-- Header row -->
+        <div class="notif-header">
+            <p style="font-size: 0.88rem; color: var(--text-light);">You have <strong style="color: var(--pink-dark);">3 unread</strong> notifications</p>
+            <button class="btn btn-secondary btn-small">Mark All as Read</button>
+        </div>
+
+        <!-- New Notifications -->
+        <div class="notif-section-label">New</div>
+
+        <div class="notif-card unread type-success">
+            <div class="notif-emoji">✅</div>
+            <div class="notif-body">
+                <h4>Adoption Approved!</h4>
+                <p>Great news! Your adoption application for <strong>Buddy</strong> (Golden Retriever) has been approved by Happy Paws Shelter.</p>
+                <div class="notif-time">Today · 10:30 AM</div>
+            </div>
+            <div class="unread-dot"></div>
+        </div>
+
+        <div class="notif-card unread type-info">
+            <div class="notif-emoji">🐾</div>
+            <div class="notif-body">
+                <h4>New Pets Available!</h4>
+                <p>5 new pets matching your preferences (cats & small animals) have been added to shelters near you.</p>
+                <div class="notif-time">Today · 9:15 AM</div>
+            </div>
+            <div class="unread-dot"></div>
+        </div>
+
+        <div class="notif-card unread type-warning">
+            <div class="notif-emoji">📝</div>
+            <div class="notif-body">
+                <h4>Application Under Review</h4>
+                <p>Your application for <strong>Luna</strong> (Persian Cat) is currently being reviewed. You'll hear back within 2–3 business days.</p>
+                <div class="notif-time">Yesterday · 4:45 PM</div>
+            </div>
+            <div class="unread-dot"></div>
+        </div>
+
+        <!-- Older Notifications -->
+        <div class="notif-section-label">Earlier</div>
+
+        <div class="notif-card type-info">
+            <div class="notif-emoji">🏠</div>
+            <div class="notif-body">
+                <h4>Welcome to FurEver Home!</h4>
+                <p>Your account has been created successfully. Start browsing pets and find your perfect companion.</p>
+                <div class="notif-time">Jan 8, 2025</div>
+            </div>
+        </div>
+
+        <div class="notif-card">
+            <div class="notif-emoji">❌</div>
+            <div class="notif-body">
+                <h4>Application Not Approved</h4>
+                <p>Unfortunately, your application for <strong>Coco</strong> (Holland Lop) was not approved this time. You may apply for another pet.</p>
+                <div class="notif-time">Jan 7, 2025</div>
+            </div>
+        </div>
+
+        <div class="notif-card type-info">
+            <div class="notif-emoji">💳</div>
+            <div class="notif-body">
+                <h4>Payment Received</h4>
+                <p>Your adoption fee payment of Rs. 2,000 for the application has been received successfully.</p>
+                <div class="notif-time">Jan 5, 2025</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>🐾 FurEver Home &copy; 2025 | Made with love for every furry soul 💕</p>
+    </footer>
+
+</body>
+</html>

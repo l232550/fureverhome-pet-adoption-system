@@ -1,0 +1,226 @@
+<script> 
+    fetch("../api/check_auth.php") 
+        .then(res=>res.text()) 
+        .then(res=>{ if(res=="unauthorized")
+        { window.location = "login.html"; } });
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FurEver Home - Adoption Application</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .application-wrapper {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .application-card {
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 36px 40px;
+            box-shadow: 0 4px 18px var(--shadow);
+        }
+
+        .app-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--pink-light);
+        }
+
+        .app-header .icon { font-size: 2.6rem; margin-bottom: 8px; }
+        .app-header p { font-size: 0.9rem; color: var(--text-light); }
+
+        .pet-summary {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background-color: var(--pink-light);
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin-bottom: 28px;
+        }
+
+        .pet-summary .pet-emoji { font-size: 2.4rem; }
+
+        .pet-summary h4 { font-size: 1rem; color: var(--brown-dark); }
+        .pet-summary p { font-size: 0.82rem; }
+
+        .section-label {
+            font-size: 0.82rem;
+            font-weight: bold;
+            color: var(--pink-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 14px;
+            margin-top: 24px;
+            border-bottom: 1px solid var(--pink-light);
+            padding-bottom: 6px;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .submit-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .submit-row .btn {
+            flex: 1;
+            padding: 12px;
+            font-size: 1rem;
+        }
+
+        .disclaimer {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            text-align: center;
+            margin-top: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">🐾 FurEver <span>Home</span></a>
+        <ul class="nav-links">
+            <li><a href="browse-pets.html">Browse Pets</a></li>
+            <li><a href="user-dashboard.html">Dashboard</a></li>
+            <li><a href="login.html" class="btn btn-secondary btn-small">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Application Form -->
+    <div class="application-wrapper">
+        <div class="application-card">
+
+            <div class="app-header">
+                <div class="icon">📝</div>
+                <h2>Adoption Application Form</h2>
+                <p>Please fill out the form carefully. The shelter will review and respond within 2–3 days.</p>
+            </div>
+
+            <!-- Pet Summary -->
+            <div class="pet-summary">
+                <div class="pet-emoji">🐶</div>
+                <div>
+                    <h4>Applying for: Buddy</h4>
+                    <p>Golden Retriever · 2 yrs · Male · Happy Paws Shelter</p>
+                </div>
+            </div>
+
+            <form action="#">
+
+                <!-- Personal Info -->
+                <div class="section-label">👤 Your Personal Information</div>
+
+                <div class="two-col">
+                    <div class="form-group">
+                        <label for="fname">First Name</label>
+                        <input type="text" id="fname" placeholder="Your first name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lname">Last Name</label>
+                        <input type="text" id="lname" placeholder="Your last name" required>
+                    </div>
+                </div>
+
+                <div class="two-col">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="+92 300 0000000">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Home Address</label>
+                    <input type="text" id="address" placeholder="Street, City, Province">
+                </div>
+
+                <!-- Home Environment -->
+                <div class="section-label">🏡 Your Home Environment</div>
+
+                <div class="two-col">
+                    <div class="form-group">
+                        <label for="home-type">Home Type</label>
+                        <select id="home-type">
+                            <option value="">Select...</option>
+                            <option>Apartment</option>
+                            <option>House with Yard</option>
+                            <option>House without Yard</option>
+                            <option>Farm</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="other-pets">Do you have other pets?</label>
+                        <select id="other-pets">
+                            <option value="">Select...</option>
+                            <option>No</option>
+                            <option>Yes – Dogs</option>
+                            <option>Yes – Cats</option>
+                            <option>Yes – Multiple</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="children">Do you have children at home?</label>
+                    <select id="children">
+                        <option value="">Select...</option>
+                        <option>No children</option>
+                        <option>Children under 5</option>
+                        <option>Children 5–12</option>
+                        <option>Teenagers</option>
+                    </select>
+                </div>
+
+                <!-- Adoption Reason -->
+                <div class="section-label">💬 Why Do You Want to Adopt?</div>
+
+                <div class="form-group">
+                    <label for="reason">Please describe your reason for adoption</label>
+                    <textarea id="reason" placeholder="Tell us a little about yourself and why you'd like to adopt this pet..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="experience">Previous pet experience</label>
+                    <textarea id="experience" placeholder="Have you owned pets before? Tell us about your experience..." style="min-height: 70px;"></textarea>
+                </div>
+
+                <!-- Submit -->
+                <div class="submit-row">
+                    <button type="submit" class="btn btn-primary">Submit Application 🐾</button>
+                    <a href="pet-details.html" class="btn btn-secondary">Cancel</a>
+                </div>
+
+            </form>
+
+            <p class="disclaimer">
+                By submitting this form, you confirm that all information provided is accurate and truthful.
+            </p>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>🐾 FurEver Home &copy; 2025 | Made with love for every furry soul 💕</p>
+    </footer>
+
+</body>
+</html>
