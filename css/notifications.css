@@ -1,4 +1,8 @@
 
+body {
+     display: none; /* hide page until auth check passes */
+}
+
 .notif-wrapper {
     max-width: 720px;
     margin: 40px auto;

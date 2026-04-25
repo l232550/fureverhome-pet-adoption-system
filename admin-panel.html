@@ -26,7 +26,7 @@
         <a href="index.html" class="logo">🐾 FurEver <span>Home</span></a>
         <ul class="nav-links">
             <li><span style="color: var(--pink-dark); font-size: 0.85rem;">👑 Admin Panel</span></li>
-            <li><a href="login.html" class="btn btn-secondary btn-small">Logout</a></li>
+            <li><a href="#" onclick="logout()" class="btn btn-secondary btn-small">Logout</a></li>
         </ul>
     </nav>
 
@@ -184,5 +184,14 @@
     </footer>
 
 <h2>Tasks</h2>
+<script>
+    function logout(){
+        fetch("api/logout.php")
+        .then(res => res.text())
+        .then(() => {
+            window.location = "login.html";
+        });
+    }
+</script>
 </body>
 </html>
