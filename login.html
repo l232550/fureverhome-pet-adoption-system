@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
+    <!-- Page Loader -->
+    <div id="loader" class="loader-overlay" style="display:none;">
+        <div class="loader-spinner"></div>
+        <p class="loader-text">Loading... 🐾</p>
+    </div>
 
     <!-- Navbar -->
     <nav class="navbar">
@@ -95,13 +100,16 @@ function login(event){
     .then(msg => {
 
         if(msg.trim() === "adopter"){
-            window.location = "index.html";
+            document.getElementById("loader").style.display = "flex";
+            setTimeout(() => { window.location = "user-dashboard.html"; }, 1500);
         }
         else if(msg.trim() === "shelter-staff"){
-            window.location = "pet-details.html";
+            document.getElementById("loader").style.display = "flex";
+            setTimeout(() => { window.location = "shelter-dashboard.html"; }, 1500);
         }
         else if(msg.trim() === "admin"){
-            window.location = "admin-panel.html";
+            document.getElementById("loader").style.display = "flex";
+            setTimeout(() => { window.location = "admin-panel.html"; }, 1500);
         }
         else{
             alert("Invalid login");
