@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "db.php";
 
 $email = $_POST['email'];
@@ -10,7 +11,6 @@ $sql = "SELECT * FROM users WHERE email='$email' AND password='$password' AND ro
 $result = mysqli_query($conn, $sql);
 
 if(mysqli_num_rows($result) > 0){
-    session_start();
     $_SESSION['user'] = $email;
     $_SESSION['role'] = $role;
     echo $role;
