@@ -1,0 +1,75 @@
+
+.application-wrapper {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.application-card {
+    background-color: var(--white);
+    border-radius: 20px;
+    padding: 36px 40px;
+    box-shadow: 0 4px 18px var(--shadow);
+}
+
+.app-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--pink-light);
+}
+
+.app-header .icon { font-size: 2.6rem; margin-bottom: 8px; }
+.app-header p { font-size: 0.9rem; color: var(--text-light); }
+
+.pet-summary {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background-color: var(--pink-light);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 28px;
+}
+
+.pet-summary .pet-emoji { font-size: 2.4rem; }
+
+.pet-summary h4 { font-size: 1rem; color: var(--brown-dark); }
+.pet-summary p { font-size: 0.82rem; }
+
+.section-label {
+    font-size: 0.82rem;
+    font-weight: bold;
+    color: var(--pink-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 14px;
+    margin-top: 24px;
+    border-bottom: 1px solid var(--pink-light);
+    padding-bottom: 6px;
+}
+
+.two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.submit-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.submit-row .btn {
+    flex: 1;
+    padding: 12px;
+    font-size: 1rem;
+}
+
+.disclaimer {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    text-align: center;
+    margin-top: 14px;
+}
