@@ -1,8 +1,13 @@
 <script> 
-    fetch("../api/check_auth.php?role=admin") 
+    fetch("api/check_auth.php?role=admin") 
         .then(res=>res.text()) 
-        .then(res=>{ if(res=="unauthorized")
-        { window.location = "login.html"; } });
+        .then(res=>{
+            if(res=="unauthorized"){ 
+                window.location = "login.html"; 
+                } else {
+            document.body.style.display = "block"; // ✅ only show if authorized
+        }
+    });
 </script>
 
 <!DOCTYPE html>
@@ -13,6 +18,9 @@
     <title>FurEver Home - Admin Panel</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
+
+        body { display: none; }  /* hide page until auth check passes */
+        
         .admin-layout {
             display: grid;
             grid-template-columns: 220px 1fr;
