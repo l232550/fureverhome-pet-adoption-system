@@ -1,4 +1,4 @@
-<?php
+<?php   //for frontend checking
 session_start();
 
 // Prevent browser from caching protected pages
