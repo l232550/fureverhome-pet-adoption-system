@@ -20,7 +20,6 @@
     <link rel="stylesheet" href="css/shelter-dashboard.css">
 </head>
 <body>
-    </div>
     <!-- Navbar -->
     <nav class="navbar">
         <a href="index.html" class="logo">🐾 FurEver <span>Home</span></a>
@@ -36,9 +35,9 @@
         <!-- Sidebar -->
         <aside class="shelter-sidebar">
             <div class="shelter-staff-info">
-                <div class="staff-avatar">👩</div>
-                <h3>Sara Khan</h3>
-                <p>Happy Paws Shelter</p>
+                <div class="staff-avatar">👤</div>
+                <h3 id="staff-name">Loading...</h3>
+                <p id="staff-email"></p>
                 <p style="margin-top: 2px; color: var(--pink-dark);">Shelter Staff</p>
             </div>
             <nav class="shelter-sidebar-menu">
@@ -50,6 +49,59 @@
                 <a href="login.html">🚪 Logout</a>
             </nav>
         </aside>
+
+        <!-- Edit Pet Modal -->
+        <div id="edit-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
+            <div style="background:white; border-radius:16px; padding:32px; width:90%; max-width:500px; max-height:90vh; overflow-y:auto;">
+                <h3>✏️ Edit Pet</h3>
+                <form id="editPetForm" style="margin-top:16px;">
+                    <input type="hidden" id="edit-pet-id" name="pet_id">
+                    <div class="form-group">
+                        <label>Pet Name</label>
+                        <input type="text" id="edit-pet-name" name="pet_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Breed</label>
+                        <input type="text" id="edit-breed" name="breed">
+                    </div>
+                    <div class="form-group">
+                        <label>Age</label>
+                        <input type="text" id="edit-pet-age" name="age" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select id="edit-gender" name="gender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Health Status</label>
+                        <select id="edit-health" name="health_status">
+                            <option>Vaccinated</option>
+                            <option>Partially Vaccinated</option>
+                            <option>Not Vaccinated</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Availability</label>
+                        <select id="edit-availability" name="availability">
+                            <option value="available">Available</option>
+                            <option value="pending">Pending</option>
+                            <option value="adopted">Adopted</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="edit-description" name="description"></textarea>
+                    </div>
+                    <div style="display:flex; gap:10px; margin-top:16px;">
+                        <button type="submit" class="btn btn-brown">Save Changes</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
         <!-- Main Content -->
         <main class="shelter-main">
@@ -76,15 +128,20 @@
             <!-- Add New Pet Form -->
             <div class="add-pet-form">
                 <h3>➕ Add a New Pet to Shelter</h3>
-                <form action="#">
+
+                <!-- Success / Error Alert -->
+                <div id="pet-alert" style="display:none; padding:10px 16px; border-radius:8px; margin-bottom:14px; font-weight:500;"></div>
+
+                <!-- Your form must have this enctype for file upload -->
+                <form id="addPetForm" enctype="multipart/form-data">
                     <div class="three-col">
                         <div class="form-group">
-                            <label for="pet-name">Pet Name</label>
-                            <input type="text" id="pet-name" placeholder="e.g. Buddy">
+                            <label for="pet-name">Pet Name <span style="color:red">*</span></label>
+                            <input type="text" id="pet-name" name="pet_name" placeholder="e.g. Buddy" required>
                         </div>
                         <div class="form-group">
-                            <label for="species">Type</label>
-                            <select id="species">
+                            <label for="species">Type <span style="color:red">*</span></label>
+                            <select id="species" name="species" required>
                                 <option value="">Select...</option>
                                 <option>Dog</option>
                                 <option>Cat</option>
@@ -95,17 +152,17 @@
                         </div>
                         <div class="form-group">
                             <label for="breed">Breed</label>
-                            <input type="text" id="breed" placeholder="e.g. Golden Retriever">
+                            <input type="text" id="breed" name="breed" placeholder="e.g. Golden Retriever">
                         </div>
                     </div>
                     <div class="three-col">
                         <div class="form-group">
-                            <label for="pet-age">Age</label>
-                            <input type="text" id="pet-age" placeholder="e.g. 2 years">
+                            <label for="pet-age">Age <span style="color:red">*</span></label>
+                            <input type="text" id="pet-age" name="age" placeholder="e.g. 2 years" required>
                         </div>
                         <div class="form-group">
-                            <label for="pet-gender">Gender</label>
-                            <select id="pet-gender">
+                            <label for="pet-gender">Gender <span style="color:red">*</span></label>
+                            <select id="pet-gender" name="gender" required>
                                 <option value="">Select...</option>
                                 <option>Male</option>
                                 <option>Female</option>
@@ -113,7 +170,7 @@
                         </div>
                         <div class="form-group">
                             <label for="health-status">Health Status</label>
-                            <select id="health-status">
+                            <select id="health-status" name="health_status">
                                 <option>Vaccinated</option>
                                 <option>Partially Vaccinated</option>
                                 <option>Not Vaccinated</option>
@@ -122,9 +179,19 @@
                     </div>
                     <div class="form-group">
                         <label for="pet-description">Description</label>
-                        <textarea id="pet-description" placeholder="Describe the pet's personality and background..."></textarea>
+                        <textarea id="pet-description" name="description" placeholder="Describe the pet's personality and background..."></textarea>
                     </div>
-                    <button type="submit" class="btn btn-brown">Add Pet to Shelter 🐾</button>
+                    <div class="form-group">
+                        <label for="pet-image">Pet Image</label>
+                        <input type="file" id="pet-image" name="pet_image" accept="image/*">
+                        
+                        <!-- Image Preview -->
+                        <div id="image-preview" style="display:none; margin-top:10px;">
+                            <img id="preview-img" src="" alt="Preview" 
+                                style="width:120px; height:120px; object-fit:cover; border-radius:10px; border:2px solid var(--brown-main);">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-brown" id="addPetBtn">Add Pet to Shelter 🐾</button>
                 </form>
             </div>
 
@@ -143,43 +210,8 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>🐶 Buddy</td>
-                            <td>Golden Retriever</td>
-                            <td>2 yrs</td>
-                            <td><span class="badge badge-available">Available</span></td>
-                            <td>
-                                <div class="table-actions">
-                                    <button class="btn btn-secondary btn-small">Edit</button>
-                                    <button class="btn btn-danger btn-small">Remove</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>🐱 Luna</td>
-                            <td>Persian Cat</td>
-                            <td>1 yr</td>
-                            <td><span class="badge badge-pending">Pending</span></td>
-                            <td>
-                                <div class="table-actions">
-                                    <button class="btn btn-secondary btn-small">Edit</button>
-                                    <button class="btn btn-danger btn-small">Remove</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>🐦 Kiwi</td>
-                            <td>Parakeet</td>
-                            <td>1 yr</td>
-                            <td><span class="badge badge-available">Available</span></td>
-                            <td>
-                                <div class="table-actions">
-                                    <button class="btn btn-secondary btn-small">Edit</button>
-                                    <button class="btn btn-danger btn-small">Remove</button>
-                                </div>
-                            </td>
-                        </tr>
+                    <tbody id="pets-table-body">
+                        <!-- Rows loaded dynamically by loadPets() -->
                     </tbody>
                 </table>
             </div>
@@ -230,6 +262,272 @@
             window.location = "login.html";
         });
     }
+</script>
+
+<script>
+
+// 1. ADD PET FUNCTION
+// =====================
+function initAddPet() {
+    document.getElementById('addPetForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const btn   = document.getElementById('addPetBtn');
+        const alert = document.getElementById('pet-alert');
+
+        btn.disabled    = true;
+        btn.textContent = 'Adding... ⏳';
+
+        const formData = new FormData(this);
+
+        fetch('api/add_pet.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === 'success') {
+                showAlert(alert, '✅ ' + data.message, 'success');
+                document.getElementById('addPetForm').reset();
+                addPetToTable(data.pet); // add new row dynamically
+            } else {
+                showAlert(alert, '❌ ' + data.message, 'error');
+            }
+        })
+        .catch(err => {
+            showAlert(alert, '❌ Something went wrong. Please try again.', 'error');
+            console.error(err);
+        })
+        .finally(() => {
+            btn.disabled    = false;
+            btn.textContent = 'Add Pet to Shelter 🐾';
+        });
+    });
+}
+
+// =====================
+// IMAGE PREVIEW FUNCTION
+// =====================
+function initImagePreview() {
+    document.getElementById('pet-image').addEventListener('change', function() {
+        const file    = this.files[0];
+        const preview = document.getElementById('image-preview');
+        const img     = document.getElementById('preview-img');
+
+        if (file) {
+            // Validate file type
+            const allowed = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
+            if (!allowed.includes(file.type)) {
+                alert('❌ Only JPG, PNG, WEBP images allowed!');
+                this.value = '';
+                preview.style.display = 'none';
+                return;
+            }
+
+            // Validate file size (max 2MB)
+            if (file.size > 2 * 1024 * 1024) {
+                alert('❌ Image size must be less than 2MB!');
+                this.value = '';
+                preview.style.display = 'none';
+                return;
+            }
+
+            // Show preview
+            const reader      = new FileReader();
+            reader.onload     = function(e) {
+                img.src               = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.style.display = 'none';
+        }
+    });
+}
+
+function showAlert(el, message, type) {
+    el.textContent   = message;
+    el.style.display = 'block';
+    el.style.background = type === 'success' ? '#d4edda' : '#f8d7da';
+    el.style.color      = type === 'success' ? '#155724' : '#721c24';
+    el.style.border     = type === 'success' ? '1px solid #c3e6cb' : '1px solid #f5c6cb';
+
+    // Auto-hide after 4 seconds
+    setTimeout(() => { el.style.display = 'none'; }, 4000);
+}
+
+// =====================
+// 2. LOAD PETS FUNCTION  (ready for when friend gives get_pets.php)
+// =====================
+function loadPets() {
+    const tbody = document.querySelector('#pets-table-body');
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">Loading pets... ⏳</td></tr>`;
+
+    fetch('api/get_pets.php')
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === 'success') {
+            tbody.innerHTML = ''; // clear loading message
+
+            if (data.pets.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">No pets found. Add your first pet! 🐾</td></tr>`;
+                return;
+            }
+
+            data.pets.forEach(pet => addPetToTable(pet));
+
+        } else {
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:red;">Failed to load pets.</td></tr>`;
+        }
+    })
+    .catch(err => {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:red;">Error loading pets.</td></tr>`;
+        console.error(err);
+    });
+}
+
+// =====================
+// 3. DELETE PET FUNCTION
+// =====================
+function initDeletePet() {
+    document.querySelector('#pets-table-body').addEventListener('click', function(e) {
+        if (e.target.classList.contains('btn-danger')) {
+
+            const row     = e.target.closest('tr');
+            const petId   = row.getAttribute('data-pet-id');
+            const petName = row.querySelector('td:first-child').textContent.trim();
+
+            if (!confirm(`Are you sure you want to remove "${petName}" from shelter?`)) {
+                return;
+            }
+
+            e.target.disabled    = true;
+            e.target.textContent = '...';
+
+            const formData = new FormData();
+            formData.append('pet_id', petId);
+
+            fetch('api/delete_pet.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Fade out and remove row
+                    row.style.transition = 'opacity 0.4s ease';
+                    row.style.opacity    = '0';
+                    setTimeout(() => row.remove(), 400);
+
+                    const alert = document.getElementById('pet-alert');
+                    showAlert(alert, '✅ ' + data.message, 'success');
+                } else {
+                    alert('❌ ' + data.message);
+                    e.target.disabled    = false;
+                    e.target.textContent = 'Remove';
+                }
+            })
+            .catch(err => {
+                alert('❌ Something went wrong. Please try again.');
+                e.target.disabled    = false;
+                e.target.textContent = 'Remove';
+                console.error(err);
+            });
+        }
+    });
+}
+
+function addPetToTable(pet) {
+    const tbody = document.querySelector('#pets-table-body');
+    const emoji = { Dog: '🐶', Cat: '🐱', Rabbit: '🐰', Bird: '🐦', Other: '🐾' };
+    const row = document.createElement('tr');
+    row.setAttribute('data-pet-id',      pet.id);
+    row.setAttribute('data-pet-name',    pet.name);
+    row.setAttribute('data-pet-breed',   pet.breed || '');
+    row.setAttribute('data-pet-age',     pet.age);
+    row.setAttribute('data-pet-gender',  pet.gender);
+    row.setAttribute('data-pet-health',  pet.health_status);
+    row.setAttribute('data-pet-desc',    pet.description || '');
+    row.setAttribute('data-pet-avail',   pet.availability);
+    row.innerHTML = `
+        <td>${emoji[pet.type] || '🐾'} ${pet.name}</td>
+        <td>${pet.breed || '-'}</td>
+        <td>${pet.age}</td>
+        <td><span class="badge badge-${pet.availability}">${pet.availability}</span></td>
+        <td>
+            <div class="table-actions">
+                <button class="btn btn-secondary btn-small btn-edit">Edit</button>
+                <button class="btn btn-danger btn-small">Remove</button>
+            </div>
+        </td>
+    `;
+    tbody.prepend(row);
+}
+
+function loadUserProfile() {
+    fetch('api/get_user.php')
+    .then(res => res.json())
+    .then(data => {
+        if(data.status === 'success'){
+            document.getElementById('staff-name').textContent  = data.user.fname + ' ' + data.user.lname;
+            document.getElementById('staff-email').textContent = data.user.email;
+        }
+    });
+}
+
+function openEditModal(row) {
+    document.getElementById('edit-pet-id').value       = row.getAttribute('data-pet-id');
+    document.getElementById('edit-pet-name').value     = row.getAttribute('data-pet-name');
+    document.getElementById('edit-breed').value        = row.getAttribute('data-pet-breed');
+    document.getElementById('edit-pet-age').value      = row.getAttribute('data-pet-age');
+    document.getElementById('edit-gender').value       = row.getAttribute('data-pet-gender');
+    document.getElementById('edit-health').value       = row.getAttribute('data-pet-health');
+    document.getElementById('edit-description').value  = row.getAttribute('data-pet-desc');
+    document.getElementById('edit-availability').value = row.getAttribute('data-pet-avail');
+
+    document.getElementById('edit-modal').style.display = 'flex';
+}
+
+function closeEditModal() {
+    document.getElementById('edit-modal').style.display = 'none';
+}
+
+function initEditPet() {
+    document.querySelector('#pets-table-body').addEventListener('click', function(e) {
+        if(e.target.classList.contains('btn-edit')){
+            const row = e.target.closest('tr');
+            openEditModal(row);
+        }
+    });
+
+    document.getElementById('editPetForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        fetch('api/update_pet.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.status === 'success'){
+                showAlert(document.getElementById('pet-alert'), '✅ ' + data.message, 'success');
+                closeEditModal();
+                loadPets(); // reload table
+            } else {
+                showAlert(document.getElementById('pet-alert'), '❌ ' + data.message, 'error');
+            }
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadUserProfile(); // for dynamic shelter staff loading
+    loadPets();       // load pets from DB (ready for friend's get_pets.php)
+    initAddPet();     // setup add pet form
+    initDeletePet();  // setup delete buttons
+    initEditPet();    // ← add this
+    initImagePreview(); // ← add this
+});
 </script>
 </body>
 </html>
