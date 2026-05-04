@@ -9,6 +9,12 @@
 }
 
 /* ---- Pet Image Box ---- */
+.pet-img img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+}
 .pet-image-box {
     background-color: var(--white);
     border-radius: 16px;

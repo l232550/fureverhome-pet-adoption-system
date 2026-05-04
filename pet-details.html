@@ -25,43 +25,39 @@
         <!-- Left: Image -->
         <div>
             <div class="pet-image-box">
-                <div class="big-img">🐶</div>
-                <div class="thumbnail-row">
-                    <div class="thumbnail selected">🐶</div>
-                    <div class="thumbnail">🎾</div>
-                    <div class="thumbnail">🌿</div>
+                <div class="big-img">
+                    <img id="petImage" src="" alt="Pet Image">
                 </div>
             </div>
         </div>
-
         <!-- Right: Info -->
         <div class="pet-info-box">
 
             <div>
                 <div class="pet-title-row">
-                    <h1>Buddy 🐶</h1>
-                    <span class="badge badge-available">Available</span>
+                    <h1 id="petName"></h1>
+                    <span class="badge badge-available" id="petStatus" >Loading....</span>
                 </div>
-                <p style="margin-top:6px;">Golden Retriever &nbsp;·&nbsp; Happy Paws Shelter, Lahore</p>
+                <p id="petBreedText" style="margin-top:6px;"></p>
             </div>
 
             <!-- Info Grid -->
             <div class="info-grid">
                 <div class="info-item">
                     <div class="info-label">Age</div>
-                    <div class="info-value">2 Years</div>
+                    <div class="info-value"  id="petAge"></div>
                 </div>
                 <div class="info-item">
                     <div class="info-label">Gender</div>
-                    <div class="info-value">Male</div>
+                    <div class="info-value" id="petGender"></div>
                 </div>
                 <div class="info-item">
                     <div class="info-label">Breed</div>
-                    <div class="info-value">Golden Retriever</div>
+                    <div class="info-value" id="petBreed"></div>
                 </div>
                 <div class="info-item">
-                    <div class="info-label">Size</div>
-                    <div class="info-value">Large (28 kg)</div>
+                    <div class="info-label">Type</div>
+                    <div class="info-value"id="type"></div>
                 </div>
             </div>
 
@@ -70,7 +66,7 @@
                 <h3>🩺 Health & Medical History</h3>
                 <div class="health-row">
                     <span>Vaccinated</span>
-                    <span class="check">✔ Yes</span>
+                    <span class="check" id="healthStatus"></span>
                 </div>
                 <div class="health-row">
                     <span>Neutered / Spayed</span>
@@ -92,18 +88,19 @@
 
             <!-- Description -->
             <div class="description-box">
-                <h3>📖 About Buddy</h3>
-                <p>
-                    Buddy is a cheerful and affectionate Golden Retriever who gets along with everyone — 
-                    kids, adults, and other animals. He loves fetch, long walks, and belly rubs. 
-                    He is house-trained and responds well to basic commands. 
-                    Buddy is looking for a loving home with a yard where he can run and play freely. 💛
+                <h3>📖 About <h3 id="petName"></h3>
+                <p id="petDescription">
                 </p>
             </div>
 
             <!-- Action Buttons -->
             <div class="action-row">
-                <a href="adoption-application.html" class="btn btn-primary">Apply for Adoption 🐾</a>
+                <!-- in pet-details.html -->
+                 <a href="#" class="btn btn-primary" id="applyBtn">Apply for Adoption 🐾</a>
+                <!-- ✅ Correct hardcoded link for testing -->
+                <!-- <a href="adoption-application.html?pet_id=3&name=xioxio&breed=Golden Retriever&age=4yrs&gender=Female&staff=Minahil Fatma" class="btn btn-primary">
+                    Apply for Adoption 🐾
+                </a> -->
                 <a href="browse-pets.html" class="btn btn-secondary">← Back to Browse</a>
             </div>
 
@@ -116,4 +113,54 @@
     </footer>
 
 </body>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Get pet id from URL
+    const params = new URLSearchParams(window.location.search);
+    const petId = params.get("id");
+
+    if (!petId) {
+        alert("Pet ID missing");
+        return;
+    }
+
+    // AJAX request
+    fetch("api/get_pet_details.php?id=" + petId)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+                return;
+            }
+
+            // Fill page dynamically
+            document.getElementById("petName").textContent = data.name;
+            document.getElementById("petAge").textContent = data.age;
+            document.getElementById("petGender").textContent = data.gender;
+            document.getElementById("petBreed").textContent = data.breed;
+            document.getElementById("petStatus").textContent = data.availability;
+            document.getElementById("petDescription").textContent = data.description;
+            document.getElementById("healthStatus").textContent = "✔ Yes";
+            document.getElementById("type").textContent = data.type;
+            document.getElementById("petBreedText").textContent = data.breed;
+            const img = document.getElementById("petImage");
+
+            img.src = "/furever-home-with-sessions/" + data.image_url;
+
+            // img.onerror = function () {
+            //     console.log("Image failed:", img.src);
+            //     img.src = "/furever_home_with_sessions/uploads/pets/default.jpg";
+            // };
+
+            // Update Apply button
+            document.getElementById("applyBtn").href = 
+            "adoption-application.html?pet_id=" + data.id + "&pet_name=" + encodeURIComponent(data.name);
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+
+});
+</script>
 </html>

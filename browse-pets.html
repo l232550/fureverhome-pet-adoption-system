@@ -61,93 +61,16 @@
                 <option>Female</option>
             </select>
         </div>
-        <button class="btn btn-primary">Search 🔍</button>
+        <button class="btn btn-primary" onclick="applyFilters()">Search 🔍</button>
     </div>
 
     <!-- Pets Grid -->
     <div class="pets-section">
         <p class="results-info">Showing 6 pets available for adoption</p>
 
-        <div class="pets-grid">
+        <div class="pets-grid" id="petsGrid">
 
-            <div class="pet-card">
-                <div class="pet-img">🐶</div>
-                <div class="pet-info">
-                    <h3>Buddy</h3>
-                    <p class="pet-meta">🐕 Golden Retriever &nbsp;|&nbsp; 2 yrs &nbsp;|&nbsp; Male</p>
-                    <p>A friendly and energetic dog who loves to play and cuddle.</p>
-                    <div class="pet-footer">
-                        <span class="badge badge-available">Available</span>
-                        <a href="pet-details.html" class="btn btn-primary btn-small">View Details</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pet-card">
-                <div class="pet-img">🐱</div>
-                <div class="pet-info">
-                    <h3>Luna</h3>
-                    <p class="pet-meta">🐈 Persian Cat &nbsp;|&nbsp; 1 yr &nbsp;|&nbsp; Female</p>
-                    <p>A calm and affectionate cat, perfect for cozy homes.</p>
-                    <div class="pet-footer">
-                        <span class="badge badge-available">Available</span>
-                        <a href="pet-details.html" class="btn btn-primary btn-small">View Details</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pet-card">
-                <div class="pet-img">🐰</div>
-                <div class="pet-info">
-                    <h3>Coco</h3>
-                    <p class="pet-meta">🐰 Holland Lop &nbsp;|&nbsp; 6 months &nbsp;|&nbsp; Female</p>
-                    <p>A tiny ball of fluff who loves treats and gentle pets!</p>
-                    <div class="pet-footer">
-                        <span class="badge badge-available">Available</span>
-                        <a href="pet-details.html" class="btn btn-primary btn-small">View Details</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pet-card">
-                <div class="pet-img">🐦</div>
-                <div class="pet-info">
-                    <h3>Kiwi</h3>
-                    <p class="pet-meta">🦜 Parakeet &nbsp;|&nbsp; 1 yr &nbsp;|&nbsp; Male</p>
-                    <p>A cheerful, talkative bird who brings life to any room.</p>
-                    <div class="pet-footer">
-                        <span class="badge badge-available">Available</span>
-                        <a href="pet-details.html" class="btn btn-primary btn-small">View Details</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pet-card">
-                <div class="pet-img">🐶</div>
-                <div class="pet-info">
-                    <h3>Max</h3>
-                    <p class="pet-meta">🐕 Labrador &nbsp;|&nbsp; 3 yrs &nbsp;|&nbsp; Male</p>
-                    <p>A loyal, well-trained dog great with kids and families.</p>
-                    <div class="pet-footer">
-                        <span class="badge badge-pending">Pending</span>
-                        <a href="pet-details.html" class="btn btn-secondary btn-small">View Details</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pet-card">
-                <div class="pet-img">🐱</div>
-                <div class="pet-info">
-                    <h3>Mochi</h3>
-                    <p class="pet-meta">🐈 Siamese &nbsp;|&nbsp; 2 yrs &nbsp;|&nbsp; Female</p>
-                    <p>Elegant, curious, and loves watching the world from windowsills.</p>
-                    <div class="pet-footer">
-                        <span class="badge badge-available">Available</span>
-                        <a href="pet-details.html" class="btn btn-primary btn-small">View Details</a>
-                    </div>
-                </div>
-            </div>
-
+            
         </div>
 
         <!-- Pagination -->
@@ -166,4 +89,108 @@
     </footer>
 
 </body>
+<script>
+    let currentPage    = 1;
+    let activeFilters  = {};
+
+    function loadPets(page, filters) {
+        currentPage   = page;
+        activeFilters = filters || {};
+
+        const url = `api/browse_pets.php?page=${page}`;
+
+        fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(activeFilters)
+        })
+        .then(r => r.json())
+        .then(data => {
+            const { pets, total, totalPages } = data;
+            const grid = document.getElementById("petsGrid");
+            grid.innerHTML = "";
+
+            document.querySelector(".results-info").textContent =
+                total === 0
+                    ? "No pets found"
+                    : `Showing ${pets.length} of ${total} pets`;
+
+            if (pets.length === 0) {
+                grid.innerHTML = "<p>No pets found \uD83D\uDE22</p>";
+                buildPagination(0);
+                return;
+            }
+
+            pets.forEach(pet => {
+                const badgeClass = pet.availability === "available"
+                    ? "badge-available" : "badge-pending";
+                const btnClass   = pet.availability === "available"
+                    ? "btn-primary"    : "btn-secondary";
+                const imagePath  = "/furever-home-with-sessions/" + pet.image_url;
+
+                grid.innerHTML += `
+                    <div class="pet-card">
+                        <div class="pet-img">
+                            <img src="${imagePath}" alt="${pet.name}">
+                        </div>
+                        <div class="pet-info">
+                            <h3>${pet.name}</h3>
+                            <p class="pet-meta">
+                                ${pet.type} | ${pet.breed} | ${pet.age} | ${pet.gender}
+                            </p>
+                            <p>${pet.description}</p>
+                            <div class="pet-footer">
+                                <span class="badge ${badgeClass}">${pet.availability}</span>
+                                <a href="pet-details.html?id=${pet.id}"
+                                   class="btn ${btnClass} btn-small">View Details</a>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+
+            buildPagination(totalPages);
+        });
+    }
+
+    function buildPagination(totalPages) {
+        const nav = document.getElementById("pagination");
+        nav.innerHTML = "";
+
+        if (totalPages <= 1) return;
+
+        const prev = document.createElement("button");
+        prev.className = "page-btn";
+        prev.textContent = "‹";
+        prev.disabled = currentPage === 1;
+        prev.onclick = () => loadPets(currentPage - 1, activeFilters);
+        nav.appendChild(prev);
+
+        for (let i = 1; i <= totalPages; i++) {
+            const btn = document.createElement("button");
+            btn.className = "page-btn" + (i === currentPage ? " active" : "");
+            btn.textContent = i;
+            btn.onclick = () => loadPets(i, activeFilters);
+            nav.appendChild(btn);
+        }
+
+        const next = document.createElement("button");
+        next.className = "page-btn";
+        next.textContent = "›";
+        next.disabled = currentPage === totalPages;
+        next.onclick = () => loadPets(currentPage + 1, activeFilters);
+        nav.appendChild(next);
+    }
+
+    function applyFilters() {
+        const filters = {
+            search: document.getElementById("search").value.trim(),
+            type:   document.getElementById("pet-type").value,
+            age:    document.getElementById("age-range").value,
+            gender: document.getElementById("gender").value
+        };
+        loadPets(1, filters); // always reset to page 1 on new filter
+    }
+
+    document.addEventListener("DOMContentLoaded", () => loadPets(1, {}));
+</script>
 </html>
