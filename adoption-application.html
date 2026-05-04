@@ -40,104 +40,103 @@
                 <p>Please fill out the form carefully. The shelter will review and respond within 2–3 days.</p>
             </div>
 
-            <!-- Pet Summary -->
-            <div class="pet-summary">
-                <div class="pet-emoji">🐶</div>
-                <div>
-                    <h4>Applying for: Buddy</h4>
-                    <p>Golden Retriever · 2 yrs · Male · Happy Paws Shelter</p>
+        <!-- Pet Summary — make it dynamic -->
+        <div class="pet-summary">
+            <div class="pet-emoji">🐾</div>
+            <div>
+                <h4>Applying for: <span id="pet-name-display">Loading...</span></h4>
+                <p id="pet-info-display">Loading pet details...</p>
+            </div>
+        </div>
+
+        <form id="applicationForm">
+
+            <!-- Hidden pet fields — filled by JS -->
+            <input type="hidden" id="pet_id"   name="pet_id">
+            <input type="hidden" id="pet_name" name="pet_name">
+
+            <!-- Alert -->
+            <div id="app-alert" style="display:none; padding:10px 16px; border-radius:8px; margin-bottom:14px; font-weight:500;"></div>
+
+            <!-- Personal Info -->
+            <div class="section-label">👤 Your Personal Information</div>
+            <div class="two-col">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" name="first_name" placeholder="Your first name" required>
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" name="last_name" placeholder="Your last name" required>
                 </div>
             </div>
-
-            <form action="#">
-
-                <!-- Personal Info -->
-                <div class="section-label">👤 Your Personal Information</div>
-
-                <div class="two-col">
-                    <div class="form-group">
-                        <label for="fname">First Name</label>
-                        <input type="text" id="fname" placeholder="Your first name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="lname">Last Name</label>
-                        <input type="text" id="lname" placeholder="Your last name" required>
-                    </div>
-                </div>
-
-                <div class="two-col">
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="you@example.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" placeholder="+92 300 0000000">
-                    </div>
-                </div>
-
+            <div class="two-col">
                 <div class="form-group">
-                    <label for="address">Home Address</label>
-                    <input type="text" id="address" placeholder="Street, City, Province">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="you@example.com" required>
                 </div>
-
-                <!-- Home Environment -->
-                <div class="section-label">🏡 Your Home Environment</div>
-
-                <div class="two-col">
-                    <div class="form-group">
-                        <label for="home-type">Home Type</label>
-                        <select id="home-type">
-                            <option value="">Select...</option>
-                            <option>Apartment</option>
-                            <option>House with Yard</option>
-                            <option>House without Yard</option>
-                            <option>Farm</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="other-pets">Do you have other pets?</label>
-                        <select id="other-pets">
-                            <option value="">Select...</option>
-                            <option>No</option>
-                            <option>Yes – Dogs</option>
-                            <option>Yes – Cats</option>
-                            <option>Yes – Multiple</option>
-                        </select>
-                    </div>
-                </div>
-
                 <div class="form-group">
-                    <label for="children">Do you have children at home?</label>
-                    <select id="children">
+                    <label>Phone Number</label>
+                    <input type="tel" name="phone" placeholder="+92 300 0000000">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Home Address</label>
+                <input type="text" name="address" placeholder="Street, City, Province">
+            </div>
+
+            <!-- Home Environment -->
+            <div class="section-label">🏡 Your Home Environment</div>
+            <div class="two-col">
+                <div class="form-group">
+                    <label>Home Type</label>
+                    <select name="home_type">
                         <option value="">Select...</option>
-                        <option>No children</option>
-                        <option>Children under 5</option>
-                        <option>Children 5–12</option>
-                        <option>Teenagers</option>
+                        <option>Apartment</option>
+                        <option>House with Yard</option>
+                        <option>House without Yard</option>
+                        <option>Farm</option>
                     </select>
                 </div>
-
-                <!-- Adoption Reason -->
-                <div class="section-label">💬 Why Do You Want to Adopt?</div>
-
                 <div class="form-group">
-                    <label for="reason">Please describe your reason for adoption</label>
-                    <textarea id="reason" placeholder="Tell us a little about yourself and why you'd like to adopt this pet..."></textarea>
+                    <label>Do you have other pets?</label>
+                    <select name="other_pets">
+                        <option value="">Select...</option>
+                        <option>No</option>
+                        <option>Yes – Dogs</option>
+                        <option>Yes – Cats</option>
+                        <option>Yes – Multiple</option>
+                    </select>
                 </div>
+            </div>
+            <div class="form-group">
+                <label>Do you have children at home?</label>
+                <select name="children">
+                    <option value="">Select...</option>
+                    <option>No children</option>
+                    <option>Children under 5</option>
+                    <option>Children 5–12</option>
+                    <option>Teenagers</option>
+                </select>
+            </div>
 
-                <div class="form-group">
-                    <label for="experience">Previous pet experience</label>
-                    <textarea id="experience" placeholder="Have you owned pets before? Tell us about your experience..." style="min-height: 70px;"></textarea>
-                </div>
+            <!-- Reason -->
+            <div class="section-label">💬 Why Do You Want to Adopt?</div>
+            <div class="form-group">
+                <label>Please describe your reason for adoption</label>
+                <textarea name="reason" placeholder="Tell us about yourself..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Previous pet experience</label>
+                <textarea name="experience" placeholder="Have you owned pets before?" style="min-height:70px;"></textarea>
+            </div>
 
-                <!-- Submit -->
-                <div class="submit-row">
-                    <button type="submit" class="btn btn-primary">Submit Application 🐾</button>
-                    <a href="pet-details.html" class="btn btn-secondary">Cancel</a>
-                </div>
-
-            </form>
+    <!-- Submit -->
+    <div class="submit-row">
+        <button type="submit" class="btn btn-primary" id="submitBtn">Submit Application 🐾</button>
+        <a href="pet-details.html" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
 
             <p class="disclaimer">
                 By submitting this form, you confirm that all information provided is accurate and truthful.
@@ -158,6 +157,98 @@
             window.location = "login.html";
         });
     }
+        // =====================
+    // LOAD PET INFO FROM URL
+    // =====================
+    function loadPetFromURL() {
+        const params = new URLSearchParams(window.location.search);
+
+        const pet_id = params.get('pet_id');
+        const name   = params.get('pet_name');
+        const breed  = params.get('breed');
+        const age    = params.get('age');
+        const gender = params.get('gender');
+        const staff  = params.get('staff');
+
+        if (!pet_id) {
+            document.getElementById('pet-name-display').textContent = 'Unknown Pet';
+            return;
+        }
+
+        // Fill hidden fields
+        document.getElementById('pet_id').value   = pet_id;
+        document.getElementById('pet_name').value = name;
+
+        // Fill pet summary display
+        document.getElementById('pet-name-display').textContent = name || 'Unknown';
+        document.getElementById('pet-info-display').textContent =
+            `${breed || ''} · ${age || ''} · ${gender || ''} · Added by: ${staff || 'Shelter Staff'}`;
+    }
+
+    // =====================
+    // SUBMIT APPLICATION
+    // =====================
+    function initApplication() {
+        document.getElementById('applicationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const btn   = document.getElementById('submitBtn');
+            const alert = document.getElementById('app-alert');
+
+            btn.disabled    = true;
+            btn.textContent = 'Submitting... ⏳';
+
+            const formData = new FormData(this);
+
+            fetch('api/add_application.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showAlert(alert, '✅ ' + data.message, 'success');
+                    document.getElementById('applicationForm').reset();
+
+                    // Redirect to dashboard after 2 seconds
+                    setTimeout(() => {
+                        window.location = 'user-dashboard.html';
+                    }, 2000);
+
+                } else {
+                    showAlert(alert, '❌ ' + data.message, 'error');
+                    btn.disabled    = false;
+                    btn.textContent = 'Submit Application 🐾';
+                }
+            })
+            .catch(err => {
+                showAlert(alert, '❌ Something went wrong. Please try again.', 'error');
+                btn.disabled    = false;
+                btn.textContent = 'Submit Application 🐾';
+                console.error(err);
+            });
+        });
+    }
+
+    // =====================
+    // HELPER — Show Alert
+    // =====================
+    function showAlert(el, message, type) {
+        el.textContent      = message;
+        el.style.display    = 'block';
+        el.style.background = type === 'success' ? '#d4edda' : '#f8d7da';
+        el.style.color      = type === 'success' ? '#155724' : '#721c24';
+        el.style.border     = type === 'success' ? '1px solid #c3e6cb' : '1px solid #f5c6cb';
+        setTimeout(() => { el.style.display = 'none'; }, 4000);
+    }
+
+    // =====================
+    // INIT
+    // =====================
+    document.addEventListener('DOMContentLoaded', function() {
+        loadPetFromURL();    // fill pet info from URL
+        initApplication();  // setup form submit
+    });
 </script>
 </body>
 </html>

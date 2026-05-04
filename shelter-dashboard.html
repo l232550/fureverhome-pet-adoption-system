@@ -117,20 +117,21 @@
         <main class="shelter-main">
 
             <!-- Stats -->
+            <!-- Stats Row - Side by Side -->
             <div class="stats-row">
                 <div class="stat-card">
                     <div class="stat-icon">🐾</div>
-                    <div class="stat-num">8</div>
+                    <div class="stat-num" id="stat-pets">...</div>
                     <p>Pets in Shelter</p>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">📋</div>
-                    <div class="stat-num">5</div>
+                    <div class="stat-num" id="stat-pending">...</div>
                     <p>Pending Applications</p>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">🏠</div>
-                    <div class="stat-num">12</div>
+                    <div class="stat-num" id="stat-adopted">...</div>
                     <p>Successfully Adopted</p>
                 </div>
             </div>
@@ -240,19 +241,8 @@
                             <th>Status</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Tooba Nadeem</td>
-                            <td>🐶 Buddy</td>
-                            <td>10 Jan 2025</td>
-                            <td><span class="badge badge-pending">Under Review</span></td>
-                        </tr>
-                        <tr>
-                            <td>Minahil Fatima</td>
-                            <td>🐱 Luna</td>
-                            <td>14 Jan 2025</td>
-                            <td><span class="badge badge-pending">Under Review</span></td>
-                        </tr>
+                    <tbody id="applications-tbody">
+                    <!-- loaded dynamically -->
                     </tbody>
                 </table>
             </div>
@@ -532,8 +522,53 @@ function initEditPet() {
     });
 }
 
+function loadStats() {
+    fetch('api/get_stats.php')
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === 'success') {
+            document.getElementById('stat-pets').textContent    = data.stats.pets_in_shelter;
+            document.getElementById('stat-pending').textContent = data.stats.pending_applications;
+            document.getElementById('stat-adopted').textContent = data.stats.adopted;
+        }
+    })
+    .catch(err => console.error('Stats error:', err));
+}
+
+function loadApplications() {
+    const tbody = document.getElementById('applications-tbody');
+    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Loading... ⏳</td></tr>`;
+
+    fetch('api/get_applications.php')
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === 'success' && data.applications.length > 0) {
+            tbody.innerHTML = '';
+            data.applications.forEach(app => {
+                const date = new Date(app.request_date).toLocaleDateString('en-GB', 
+                             { day: 'numeric', month: 'short', year: 'numeric' });
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${app.fname} ${app.lname}</td>
+                        <td>${app.pet_name}</td>
+                        <td>${date}</td>
+                        <td><span class="badge badge-pending">${app.status}</span></td>
+                    </tr>`;
+            });
+        } else {
+            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">No applications yet.</td></tr>`;
+        }
+    })
+    .catch(err => {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:red;">Error loading applications.</td></tr>`;
+        console.error(err);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     loadUserProfile(); // for dynamic shelter staff loading
+    loadStats();           // add this
+    loadApplications();    // add this
     loadPets();       // load pets from DB (ready for friend's get_pets.php)
     initAddPet();     // setup add pet form
     initDeletePet();  // setup delete buttons
